@@ -17,5 +17,8 @@ import Lightbox from "../components/Lightbox.astro";
 	</main>
 	<SiteFooter />
 	<Lightbox />
-	<script type="module" src="/src/scripts/lightbox.ts"></script>
+	<script type="module">
+		import { setupLightbox } from "../scripts/lightbox.ts";
+		setupLightbox();
+	</script>
 </SiteLayout>
