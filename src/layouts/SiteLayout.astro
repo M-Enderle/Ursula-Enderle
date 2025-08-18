@@ -1,0 +1,32 @@
+---
+interface Props {
+	title?: string;
+	description?: string;
+	lang?: string;
+}
+
+const { title = 'Ursula Enderle Fotografie', description = 'Zeitlose Fotografie aus Berlin – Portraits, Editorials und stille Reportagen.', lang = 'de' } = Astro.props as Props;
+import "../styles/global.css";
+---
+<!DOCTYPE html>
+<html lang={lang}>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="author" content="Ursula Enderle" />
+		<meta name="keywords" content="Fotografie, Portraits, Editorial, Reportagen, Berlin" />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet" />
+
+
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>
+

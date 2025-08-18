@@ -1,0 +1,68 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+
+function toTitle(name: string) {
+	return name.replace(/\.[^/.]+$/, '').replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+function loadGallerySections() {
+	const galleryRoot = path.join(process.cwd(), 'public', 'Gallery');
+	if (!fs.existsSync(galleryRoot)) return [] as Array<{ title: string; images: Array<{ src: string; alt: string; label: string }>; }>;
+
+	const entries = fs.readdirSync(galleryRoot, { withFileTypes: true });
+	const subfolders = entries.filter((e) => e.isDirectory());
+
+	if (subfolders.length > 0) {
+		return subfolders.map((dir) => {
+			const dirPath = path.join(galleryRoot, dir.name);
+			const files = fs
+				.readdirSync(dirPath)
+				.filter((f) => /\.(png|jpe?g|webp|gif|avif)$/i.test(f));
+			const images = files.map((file) => ({
+				src: `/Gallery/${dir.name}/${file}`,
+				alt: toTitle(file),
+				label: toTitle(file),
+			}));
+			return { title: toTitle(dir.name), images };
+		});
+	}
+
+	// Fallback: top-level files
+	const topFiles = entries.filter((e) => e.isFile() && /\.(png|jpe?g|webp|gif|avif)$/i.test(e.name)).map((e) => e.name);
+	if (topFiles.length > 0) {
+		return [
+			{
+				title: 'Galerie',
+				images: topFiles.map((file) => ({ src: `/Gallery/${file}`, alt: toTitle(file), label: toTitle(file) })),
+			},
+		];
+	}
+
+	return [] as Array<{ title: string; images: Array<{ src: string; alt: string; label: string }>; }>;
+}
+
+const sections = loadGallerySections();
+---
+<section id="work" class="section" aria-labelledby="work-title">
+	<div class="container">
+		<h2 id="work-title">Ausgewählte Arbeiten</h2>
+		<p class="lead" style="margin-bottom: 2rem;">Ausgewählte Arbeiten aus unterschiedlichen Bereichen.</p>
+		<div id="gallery">
+			{sections.map((section) => (
+				<>
+					<h3 class="gallery__heading">{section.title}</h3>
+					<div class="gallery__grid" role="grid" aria-label={section.title}>
+						{section.images.map((img) => (
+							<figure class="gallery__item" role="gridcell" aria-label={img.label}>
+								<img class="gallery__image" src={img.src} alt={img.alt} loading="lazy" />
+								<figcaption class="gallery__caption">{img.label}</figcaption>
+							</figure>
+						))}
+					</div>
+				</>
+			))}
+		</div>
+	</div>
+</section>
+

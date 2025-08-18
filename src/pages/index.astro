@@ -1,0 +1,21 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import HeroSection from "../components/HeroSection.astro";
+import GallerySection from "../components/GallerySection.astro";
+import AboutSection from "../components/AboutSection.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import Lightbox from "../components/Lightbox.astro";
+---
+
+<SiteLayout title="Ursula Enderle Fotografie" description="Zeitlose Portraits, Editorials und stille Reportagen aus Berlin.">
+	<SiteHeader />
+	<main id="top">
+		<HeroSection />
+		<GallerySection />
+		<AboutSection />
+	</main>
+	<SiteFooter />
+	<Lightbox />
+	<script type="module" src="/src/scripts/lightbox.ts"></script>
+</SiteLayout>
