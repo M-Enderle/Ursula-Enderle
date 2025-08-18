@@ -56,7 +56,6 @@ const sections = loadGallerySections();
 						{section.images.map((img) => (
 							<figure class="gallery__item" role="gridcell" aria-label={img.label}>
 								<img class="gallery__image" src={img.src} alt={img.alt} loading="lazy" />
-								<figcaption class="gallery__caption">{img.label}</figcaption>
 							</figure>
 						))}
 					</div>
