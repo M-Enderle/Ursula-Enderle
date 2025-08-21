@@ -5,7 +5,6 @@ import HeroSection from "../components/HeroSection.astro";
 import GallerySection from "../components/GallerySection.astro";
 import AboutSection from "../components/AboutSection.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-import Lightbox from "../components/Lightbox.astro";
 ---
 
 <SiteLayout title="Ursula Enderle Fotografie" description="Zeitlose Portraits, Editorials und stille Reportagen aus Berlin.">
@@ -16,9 +15,4 @@ import Lightbox from "../components/Lightbox.astro";
 		<AboutSection />
 	</main>
 	<SiteFooter />
-	<Lightbox />
-	<script type="module">
-		import { setupLightbox } from "../scripts/lightbox.ts";
-		setupLightbox();
-	</script>
 </SiteLayout>
